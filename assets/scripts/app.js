@@ -10,29 +10,8 @@ const currentResult = document.getElementById('current-result');
 // create the child nodes
 const buttons = document.getElementById('btn-add').parentNode.children;
 const nodes = [...buttons];
-nodes.forEach(node => myEventListener(node));
-
-function outputResult(operator) {
-    switch(operator) {
-        case '+': 
-        currentResult.textContent = parseInt(currentResult.textContent) + parseInt(userInput.value);
-        break; 
-
-        case '-': 
-        currentResult.textContent = parseInt(currentResult.textContent) - parseInt(userInput.value);
-        break;
-
-        case '*': 
-        currentResult.textContent = parseInt(currentResult.textContent) * parseInt(userInput.value);
-        break;
-
-        case '/': 
-        currentResult.textContent = parseInt(currentResult.textContent) / parseInt(userInput.value);
-        break;
-    }
-}
+nodes.forEach(node => myEventListener(node)); 
 
 function myEventListener(btn) {
-    console.log('rounds');
-    btn.addEventListener('click', () => outputResult(btn.textContent));
+    btn.addEventListener('click', () => calculation(btn.textContent));
 }
