@@ -13,5 +13,5 @@ const nodes = [...buttons];
 nodes.forEach(node => myEventListener(node)); 
 
 function myEventListener(btn) {
-    btn.addEventListener('click', () => calculation(btn.textContent));
+    btn.addEventListener('click', () => calculation(btn.textContent)); //from util-file
 }

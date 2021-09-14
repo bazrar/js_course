@@ -7,8 +7,22 @@ function outputResult(calcNumber, currentDesc) {
     currentResult.textContent = calcNumber;
 }
 
+function generateLogs(logEntry) {
+    const logEntries = []; 
+    logEntries.push(logEntry); 
+    return logEntries; 
+}
+// generates and writes calculation log
 function createAndWriteOutput(operator, resultBeforeCalc, calcNumber) {
-    const currentDesc = `${resultBeforeCalc} ${operator} ${getUserInput()}`; 
+const usrInput = getUserInput(); 
+    const currentDesc = `${resultBeforeCalc} ${operator} ${usrInput}`;
+    const logEntry = {
+        operation: operator, 
+        prevNumber: resultBeforeCalc, 
+        usrInput, 
+        result: calcNumber
+    }
+    const logs = generateLogs(logEntry);
     outputResult(calcNumber, currentDesc); 
 }
 
@@ -25,35 +39,42 @@ function divide(currentRes, usrInput) {
     return currentRes / usrInput; 
 }
 
+function calculateResult(operator, initValue, usrInput) {
+    if(operator === '+') {
+        const currentRes = add(initValue, usrInput); 
+        createAndWriteOutput(operator, initValue, currentRes); 
+    } else if(operator === '-') {
+        const currentRes = subtract(initValue, usrInput); 
+        createAndWriteOutput(operator, initValue, currentRes); 
+    } else if(operator === '*') {
+        const currentRes = multiply(initValue, usrInput); 
+        createAndWriteOutput(operator, initValue, currentRes); 
+
+    } else {
+        const currentRes = divide(initValue, usrInput); 
+        createAndWriteOutput(operator, initValue, currentRes); 
+    }
+}
+
 function calculation(operator) {
     const usrInput = getUserInput(); 
     const currentValue = parseInt(currentResult.textContent);
-    const defaultValue = 0; 
-    let initialRes = defaultValue; 
-    let currentRes = defaultValue; 
 
     switch(operator) { 
         case '+':
-            initialRes = currentValue; 
-            currentRes = add(initialRes, usrInput); 
-            createAndWriteOutput('+', initialRes, currentRes); 
+            calculateResult(operator, currentValue, usrInput); 
             break; 
+
         case '-':
-            initialRes = currentValue; 
-            currentRes = subtract(initialRes, usrInput); 
-            createAndWriteOutput('-', initialRes, currentRes); 
+            calculateResult(operator, currentValue, usrInput); 
             break; 
 
         case '*':
-            initialRes = currentValue; 
-            currentRes = multiply(initialRes, usrInput); 
-            createAndWriteOutput('*', initialRes, currentRes); 
+            calculateResult(operator, currentValue, usrInput); 
             break; 
 
         case '/': 
-            initialRes = currentValue; 
-            currentRes = divide(initialRes, usrInput); 
-            createAndWriteOutput('/', initialRes, currentRes); 
+            calculateResult(operator, currentValue, usrInput);  
             break; 
     }
 }
