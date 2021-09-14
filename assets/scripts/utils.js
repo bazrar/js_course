@@ -1,36 +1,59 @@
-function outputResult(currentValue, currentDescription) {
-    currentCalcuation.textContent = currentDescription; 
-    currentResult.textContent = currentValue;
+function getUserInput() {
+    return parseInt(userInput.value); 
+}
+
+function outputResult(calcNumber, currentDesc) {
+    currentCalcuation.textContent = currentDesc; 
+    currentResult.textContent = calcNumber;
+}
+
+function createAndWriteOutput(operator, resultBeforeCalc, calcNumber) {
+    const currentDesc = `${resultBeforeCalc} ${operator} ${getUserInput()}`; 
+    outputResult(calcNumber, currentDesc); 
+}
+
+function add(currentRes, usrInput) {
+    return currentRes + usrInput; 
+}
+function subtract(currentRes, usrInput) {
+    return currentRes - usrInput; 
+}
+function multiply(currentRes, usrInput) {
+    return currentRes * usrInput; 
+}
+function divide(currentRes, usrInput) {
+    return currentRes / usrInput; 
 }
 
 function calculation(operator) {
-    const input = parseInt(userInput.value); 
+    const usrInput = getUserInput(); 
     const currentValue = parseInt(currentResult.textContent);
-    let currentDescription;
-    let res = 0; 
+    const defaultValue = 0; 
+    let initialRes = defaultValue; 
+    let currentRes = defaultValue; 
+
     switch(operator) { 
-        case '+': 
-        currentDescription = `${currentValue} + ${input}`;
-        res = currentValue + input; 
-        outputResult(res, currentDescription);
-        break; 
+        case '+':
+            initialRes = currentValue; 
+            currentRes = add(initialRes, usrInput); 
+            createAndWriteOutput('+', initialRes, currentRes); 
+            break; 
+        case '-':
+            initialRes = currentValue; 
+            currentRes = subtract(initialRes, usrInput); 
+            createAndWriteOutput('-', initialRes, currentRes); 
+            break; 
 
-        case '-': 
-        currentDescription = `${currentValue} - ${input}`;
-        res = currentValue - input; 
-        outputResult(res, currentDescription);
-        break;
-
-        case '*': 
-        currentDescription = `${currentValue} * ${input}`;
-        res = currentValue * input; 
-        outputResult(res, currentDescription);   
-        break;
+        case '*':
+            initialRes = currentValue; 
+            currentRes = multiply(initialRes, usrInput); 
+            createAndWriteOutput('*', initialRes, currentRes); 
+            break; 
 
         case '/': 
-        currentDescription = `${currentValue} / ${input}`;
-        res = currentValue / input; 
-        outputResult(res, currentDescription);
-        break;
+            initialRes = currentValue; 
+            currentRes = divide(initialRes, usrInput); 
+            createAndWriteOutput('/', initialRes, currentRes); 
+            break; 
     }
 }
